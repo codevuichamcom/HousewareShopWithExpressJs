@@ -1,0 +1,69 @@
+extends ../layouts/common.pug
+
+block content
+    <!--store coupon-->
+    <div class="container">
+        <div class="row">
+            <a href="#">
+                <img class="img-fluid" style="margin-top: 4.5rem;;" src="/images/store_coupon.png" alt="images/store_coupon.png">
+            </a>
+        </div>
+    </div>
+    
+    //- slider
+    #carouselExampleIndicators.carousel.slide(data-ride='carousel', data-interval='3000')
+        ol.carousel-indicators
+            li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+            li(data-target='#carouselExampleIndicators', data-slide-to='1')
+            li(data-target='#carouselExampleIndicators', data-slide-to='2')
+        .carousel-inner
+            .carousel-item.active
+                img.d-block.w-100(src='/images/slide1_1.jpg', alt='/images/slide1_1.jpg')
+            .carousel-item
+                img.d-block.w-100(src='/images/slide1_2.jpg', alt='/images/slide1_2.jpg')
+            .carousel-item
+                img.d-block.w-100(src='/images/slide1_3.jpg', alt='/images/slide1_3.jpg')
+        a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.sr-only Next
+    #carouselExampleIndicators2.carousel.slide(data-ride='carousel', data-interval='3010')
+        ol.carousel-indicators
+            li.active(data-target='#carouselExampleIndicators2', data-slide-to='0')
+            li(data-target='#carouselExampleIndicators2', data-slide-to='1')
+            li(data-target='#carouselExampleIndicators2', data-slide-to='2')
+        .carousel-inner
+            .carousel-item.active
+                img.d-block.w-100(src='images/slide2_1.jpg', alt='images/slide2_1.jpg')
+            .carousel-item
+                img.d-block.w-100(src='images/slide2_2.jpg', alt='images/slide2_2.jpg')
+            .carousel-item
+                img.d-block.w-100(src='images/slide2_3.jpg', alt='images/slide2_3.jpg')
+        a.carousel-control-prev(href='#carouselExampleIndicators2', role='button', data-slide='prev')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators2', role='button', data-slide='next')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.sr-only Next
+    .container
+        // PICK FOR YOU
+        .row
+            h1.mx-auto(style='margin-top: 1.5rem;') PICKED FOR YOU
+        .row
+            .col-md-12
+                .row.mb-3
+                    each product in products
+                        .col-md-3.mt-4
+                            .card
+                                a(href='detail?id=${product.id}')
+                                    img.card-img-top(src='/images/'+product.images[0])
+                                .card-body
+                                    a(href='detail?id=${product.id}')
+                                        h5.card-title=product.name
+                                    a(href='detail?id=${product.id}')
+                                        p.card-text=product.description
+                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart
