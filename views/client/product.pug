@@ -37,6 +37,18 @@ block content
                         a.btn.btn-outline-success(href='sort-product?free=1') free ship
                         a(href='sort-product?name=1', style='color: orange')
                             i.fas.fa-sort.ml-5
+                <!--paging-->
+                if numPages
+                    nav(aria-label='...')
+                        ul.pagination.justify-content-end
+                            li.page-item.disabled
+                                span.page-link Previous
+                            each num in numPages
+                                li.page-item
+                                    a.page-link(href='#')=num
+                            li.page-item
+                                a.page-link(href='#') Next
+                <!--end paging-->
                 .row.mb-5
                     each product in products
                         .col-md-3.mt-4.pt-2

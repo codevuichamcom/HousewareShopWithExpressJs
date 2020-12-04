@@ -35,17 +35,42 @@ module.exports.detail = async (req, res) => {
     });
 };
 module.exports.products = async (req, res) => {
-    let pageIndex = req.query.page||1;
+    let pageIndex = req.query.pageIndex||1;
     const PAGE_SIZE = 8;
+    let totalPage = 0;
 
     let filterExpress =req.query
-    if(filterExpress.page) delete filterExpress['page'];
 
+    if(filterExpress.page) delete filterExpress['page'];
+    let keyword=filterExpress.inputSearch
+    if(keyword) {
+        filterExpress = {
+            $or:[
+                {"name":{ $regex:keyword}},
+                {"description":{ $regex:keyword}},
+                {"category._categoryName":{ $regex:keyword}}
+            ]
+        }
+    }
     const products = await Product.find(filterExpress).skip((pageIndex-1)*PAGE_SIZE).limit(PAGE_SIZE);
     const categories = await Category.find();
+
+    const totalProduct = (await Product.find(filterExpress)).length;
+    totalPage = Math.trunc(totalProduct/PAGE_SIZE)
+    if(totalProduct%PAGE_SIZE !=0) totalPage++;
+    let numPages;
+    if(totalPage>1){
+        numPages=[];
+        for(let i=1;i<=totalPage;i++){
+            numPages.push(i);
+        }
+    }
+    
     res.render("client/product",{
         products:products,
-        categories:categories
+        categories:categories,
+        numPages:numPages,
+        pageIndex:pageIndex
     });
 };
 

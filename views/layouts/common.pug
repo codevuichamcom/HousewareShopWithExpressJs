@@ -59,7 +59,7 @@ html
                         a.btn.btn-outline-warning.ml-5(style='border-color: #404040 !important;font-size: 13pt' href='http://localhost:8080/HousewareShop/get-list-sale') Sale Items
                     li.nav-item
                         a.btn.btn-outline-warning.ml-5(style='border-color: #404040 !important;font-size: 13pt' href='https://www.facebook.com/xb.jamesgosling/about?section=overview&lst=100013406340780%3A100013406340780%3A1572076900') Contact Us
-                form#frm(target='_self' action='http://localhost:8080/HousewareShop/search' method='get' onchange='submitForm()')
+                form#frm(target='_self' action='/get-list-product' method='get' onchange='submitForm()')
                     .search-box
                         input.search-txt(name='inputSearch' type='text' placeholder='Type to search')
                         input(type='hidden' value='${page}' name='page')
