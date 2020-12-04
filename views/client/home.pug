@@ -48,7 +48,7 @@ block content
             span.carousel-control-next-icon(aria-hidden='true')
             span.sr-only Next
     .container
-        // PICK FOR YOU
+        <!-- PICK FOR YOU -->
         .row
             h1.mx-auto(style='margin-top: 1.5rem;') PICKED FOR YOU
         .row
@@ -67,3 +67,47 @@ block content
                                     a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
+        <!-- Measurement & Analysis Instruments -->
+        .row
+            h1.mx-auto(style='margin-top: 1.5rem') Measurement &amp; Analysis Instruments
+        .row
+            .col-md-12
+                .row.mb-3
+                    each measurement in measurements
+                        .col-md-3.mt-4
+                            .card
+                                a(href='detail?id=${product.id}')
+                                    img.card-img-top(src='/images/'+measurement.images[0])
+                                .card-body
+                                    a(href='detail?id=${product.id}')
+                                        h5.card-title=measurement.name
+                                    a(href='detail?id=${product.id}')
+                                        p.card-text=measurement.description
+                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart
+    .container-fluid
+//-   <!-- New Arrivals -->
+//-         .row(style="background-image: url('images/new_arrival.jpg')")
+//-             h1.mx-auto.mt-1(style='color: white;') New Arrivals
+//-             .col-md-12
+//-                 .row.mb-2
+//-                     .col-md-2
+//-                         c:foreach(items='${newArrival}', var='arrival')
+//-                             .col-md-2.mt-4
+//-                                 .card
+//-                                     c:if(test='${arrival.status==2}')
+//-                                         #DIV_1
+//-                                         span#SPAN_2 26
+//-                                     c:if(test='${arrival.status==3}')
+//-                                         #DIV_1
+//-                                             span#SPAN_2
+//-                                                 i.fas.fa-bolt
+//-                                     a(href='detail?id=${arrival.id}')
+//-                                         img.card-img-top(src='images/${arrival.image}', alt='...')
+//-                                         .card-body
+//-                                             a(href='detail?id=${arrival.id}')
+//-                                                 h6.card-title ${arrival.description}
+//-                                             a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${arrival.id}')
+//-                                                 i.fas.fa-cart-plus.mr-2
+//-                                                 | Add to cart
