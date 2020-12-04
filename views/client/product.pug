@@ -1,0 +1,54 @@
+extends ../layouts/common.pug
+
+block content
+    .container
+        .row
+            <!-- Show list category -->
+            .col-md-2
+                h5.labelhead
+                    .alert.alert-success(role='alert')
+                        | Category
+                .category
+                    a.pt-3(href='/get-list-product', style='color: #d71e1e; font-size: 20px') All Product
+                    each category in categories
+                        a.pt-4(href='/get-list-product?category._id='+category.id, style='color: #8400e7 !important; margin-left: 5px;font-size: 20px')=category.categoryName
+            
+            <!-- Show list product -->     
+            .col-md-10
+                h5.labelhead
+                .alert.alert-secondary(role='alert')     
+                    form#combo(onchange='submitForm()', action='sort-product', method='post')
+                        | List of products
+                        i.fas.fa-cubes.mr-2.ml-4
+                        a.btn.btn-outline-warning(href='sort-product?match=1', style='color: #ff0707')  Best Match
+                        i.fas.fa-filter.mr-2.ml-4
+                        a.btn.btn-outline-primary(href='sort-product?random=1') Random
+                        i.fas.fa-dollar-sign.mr-2.ml-4
+                        select(name='price', style='font-size: 1rem')
+                            option(value='-1') Price
+                            option(value='0') 0$-5%
+                            option(value='1') 5$-10$
+                            option(value='2') 10$-15$
+                            option(value='3') 15$-20$
+                            option(value='4') >20$
+                        i.fas.fa-sort-down.mr-2.ml-4
+                        a.btn.btn-outline-info(href='sort-product?news=1') new
+                        i.fas.fa-bolt.mr-2.ml-4
+                        a.btn.btn-outline-success(href='sort-product?free=1') free ship
+                        a(href='sort-product?name=1', style='color: orange')
+                            i.fas.fa-sort.ml-5
+                .row.mb-5
+                    each product in products
+                        .col-md-3.mt-4.pt-2
+                            .card 
+                                #DIV_1
+                                    span#SPAN_2
+                                    i.fas.fa-bolt
+                                a(href='/detail?id='+product.id)
+                                    img.card-img-top.pt-4(src='/images/'+product.images[0], style='border: 1px solid #ededed;', alt='...')
+                                .card-body.pt-3
+                                    a.btn.btn-outline-danger(href='add-to-cart-now?id=${product.id}')
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart
+                                    a.card-title.text-center.mb-1.mt-2(href='/detail?id=${product.id}')=product.name
+                                    p.text-center.my-0(style='color: #f60;font-size:20px')='$'+product.price                  

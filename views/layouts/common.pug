@@ -41,25 +41,19 @@ html
             }
     body
         nav.navbar.fixed-top.navbar-expand-lg.navbar-dark.bg-dark(style='height: 4rem; opacity: .9; background-color: #404040 !important')
-            a.navbar-brand(href='http://localhost:8080/HousewareShop/home') HouseWareShop
+            a.navbar-brand(href='/') HouseWareShop
             button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
                 span.navbar-toggler-icon
             #navbarSupportedContent.collapse.navbar-collapse
                 .navigationDesktop.ml-5
                     nav.nav
                         ul
-                        li
-                            a.link.btn.btn-outline-warning(style='background-color:  #404040; border-color: #404040 !important;color: white;margin-top: 23px;' href='http://localhost:8080/HousewareShop/get-list-product') Products
-                            ul
-                                // //for list category
-                                li.sublink
-                                    a.link(href='http://localhost:8080/HousewareShop/filter?id=categoryId') categoryName
-                                    ul
-                                        // //for list sub category of current category
+                            li
+                                a.link.btn.btn-outline-warning(style='background-color:  #404040; border-color: #404040 !important;color: white;margin-top: -2px;' href='/get-list-product') Products
+                                ul
+                                    each category in categories
                                         li.sublink
-                                        a.link(href='http://localhost:8080/HousewareShop/filter?cid=subId') getSubCategoryName
-                                        // end of for
-                                        // //end for list category
+                                            a.link(href='/get-list-product?category._id='+category._id)=category.categoryName
                 ul.navbar-nav.mr-auto
                     li.nav-item
                         a.btn.btn-outline-warning.ml-5(style='border-color: #404040 !important;font-size: 13pt' href='http://localhost:8080/HousewareShop/get-list-sale') Sale Items
