@@ -57,12 +57,12 @@ block content
                     each product in products
                         .col-md-3.mt-4
                             .card
-                                a(href='detail?id=${product.id}')
+                                a(href='/detail?id='+product.id)
                                     img.card-img-top(src='/images/'+product.images[0])
                                 .card-body
-                                    a(href='detail?id=${product.id}')
+                                    a(href='/detail?id='+product.id)
                                         h5.card-title=product.name
-                                    a(href='detail?id=${product.id}')
+                                    a(href='/detail?id='+product.id)
                                         p.card-text=product.description
                                     a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
                                         i.fas.fa-cart-plus.mr-2
@@ -86,28 +86,102 @@ block content
                                     a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
+    
+    <!--New arrivals -->
     .container-fluid
-//-   <!-- New Arrivals -->
-//-         .row(style="background-image: url('images/new_arrival.jpg')")
-//-             h1.mx-auto.mt-1(style='color: white;') New Arrivals
-//-             .col-md-12
-//-                 .row.mb-2
-//-                     .col-md-2
-//-                         c:foreach(items='${newArrival}', var='arrival')
-//-                             .col-md-2.mt-4
-//-                                 .card
-//-                                     c:if(test='${arrival.status==2}')
-//-                                         #DIV_1
-//-                                         span#SPAN_2 26
-//-                                     c:if(test='${arrival.status==3}')
-//-                                         #DIV_1
-//-                                             span#SPAN_2
-//-                                                 i.fas.fa-bolt
-//-                                     a(href='detail?id=${arrival.id}')
-//-                                         img.card-img-top(src='images/${arrival.image}', alt='...')
-//-                                         .card-body
-//-                                             a(href='detail?id=${arrival.id}')
-//-                                                 h6.card-title ${arrival.description}
-//-                                             a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${arrival.id}')
-//-                                                 i.fas.fa-cart-plus.mr-2
-//-                                                 | Add to cart
+        .row(style="background-image: url('images/new_arrival.jpg')")
+            h1.mx-auto.mt-1(style='color: white;') New Arrivals
+            .col-md-12
+                .row.mb-2
+                    .col-md-2
+                    each arrival in arrivals
+                        .col-md-2.mt-4
+                            .card
+                                #DIV_1
+                                    span#SPAN_2 26
+                                a(href='detail?id=${arrival.id}')
+                                    img.card-img-top(src='/images/'+arrival.images[0], alt='...')
+                                .card-body
+                                    a(href='detail?id=${arrival.id}')
+                                        h6.card-title=arrival.description
+                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${arrival.id}')
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart
+                    .col-md-2
+    //- // slide
+    #carouselExampleIndicators3.carousel.slide(data-ride='carousel', data-interval='3000')
+        ol.carousel-indicators
+            li.active(data-target='#carouselExampleIndicators3', data-slide-to='0')
+            li(data-target='#carouselExampleIndicators3', data-slide-to='1')
+            li(data-target='#carouselExampleIndicators3', data-slide-to='2')
+            li(data-target='#carouselExampleIndicators3', data-slide-to='3')
+        .carousel-inner
+            .carousel-item.active
+                img.d-block.w-100(src='/images/slide3_1.jpg', alt='/images/slide3_1.jpg')
+            .carousel-item
+                img.d-block.w-100(src='/images/slide3_2.jpg', alt='/images/slide3_2.jpg')
+            .carousel-item
+                img.d-block.w-100(src='/images/slide3_3.jpg', alt='/images/slide3_3.jpg')
+            .carousel-item
+                img.d-block.w-100(src='/images/slide3_4.jpg', alt='/images/slide3_4.jpg')
+        a.carousel-control-prev(href='#carouselExampleIndicators3', role='button', data-slide='prev')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators3', role='button', data-slide='next')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.sr-only Next 
+
+    <!-- Tools -->
+    .container
+        .row
+            h1.mx-auto(style='margin-top: 1.5rem') Tools
+        .row
+            .col-md-12
+                .row.mb-3
+                    each tool in tools
+                        .col-md-3.mt-4
+                            .card
+                                a(href='detail?id='+tool.id)
+                                    img.card-img-top(src='images/'+tool.images[0], alt='...')
+                                .card-body
+                                    a(href='detail?id='+tool.id)
+                                        h5.card-title=tool.name
+                                    a(href='detail?id=${tool.id}')
+                                    p.card-text=tool.description
+                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id='+tool.id)
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart          
+    #carouselExampleIndicators4.carousel.slide(data-ride='carousel', data-interval='2500')
+        ol.carousel-indicators
+            li.active(data-target='#carouselExampleIndicators4', data-slide-to='0')
+            li(data-target='#carouselExampleIndicators4', data-slide-to='1')
+        .carousel-inner
+            .carousel-item.active
+                img.d-block.w-100(src='images/slide4_1.jpg', alt='images/slide3_1.jpg')
+            .carousel-item
+                img.d-block.w-100(src='images/slide4_2.jpg', alt='images/slide3_2.jpg')
+        a.carousel-control-prev(href='#carouselExampleIndicators4', role='button', data-slide='prev')
+            span.carousel-control-prev-icon(aria-hidden='true')
+            span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators4', role='button', data-slide='next')
+            span.carousel-control-next-icon(aria-hidden='true')
+            span.sr-only Next  
+    .container
+        .row
+            h1.mx-auto(style='margin-top: 1.5rem') Home &amp; Garden
+        .row
+            .col-md-12
+                .row.mb-3
+                    each home in homeAndGardens
+                        .col-md-3.mt-4
+                            .card
+                                a(href='detail?id=${home.id}')
+                                img.card-img-top(src='/images/'+home.images[0], alt='...')
+                                .card-body
+                                    a(href='detail?id='+home.id)
+                                    h5.card-title=home.name
+                                    a(href='detail?id='+home.id)
+                                        p.card-text=home.description
+                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id='+home.id)
+                                        i.fas.fa-cart-plus.mr-2
+                                        | Add to cart                                   

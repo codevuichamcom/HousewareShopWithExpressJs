@@ -1,0 +1,44 @@
+extends ../layouts/common.pug
+
+block content
+    .container(style='margin-top: 5rem')
+        .row.mt-5
+            .col-md-5.mt-5
+                each image,index in product.images
+                    .mySlides
+                        .numbertext=(index+1)+' / '+product.images.length
+                        img.w-100(src='/images/'+image)
+                
+                <!--Next and previous buttons -->
+                a.prevs(onclick='plusSlides(-1)') &#x276E;
+                a.nexts(onclick='plusSlides(1)') &#x276F;
+
+                <!-- Thumbnail images -->
+                .row-image
+                    each image,index in product.images
+                        .column
+                            img.demo.cursor.w-100(src='/images/'+image, onclick='currentSlide('+(index+1)+')')
+            .col-md-6.pl-5
+                h3=product.name
+                p.my-0
+                    b(style='font-size: 25px;color: #f60') $50
+                        span.ml-3(style='font-size: 20px; color: rgb(153, 153, 153)')
+                            strike $100
+                hr
+                h6.mt-5
+                b='Code of Product : '+product.code
+                hr
+                p.mt-4
+                    b Information of Product:
+                    br
+                    br
+                    =product.description
+                hr
+                a.btn.btn-outline-danger.w-50.mt-4(href='add-to-cart?id=${requestScope.product.id}')
+                    i.fas.fa-cart-plus.mr-2
+                    | Add to Cart
+                a.btn.btn-outline-success.w-25.mt-4.ml-2(href='checkout')
+                    | Buy Now
+                    i.fas.fa-money-check-alt.ml-2(style='color: green')
+
+    script(src='js/gallery.js', type='text/javascript')

@@ -13,8 +13,8 @@ app.set('views', './views');
 
 app.use(express.static('public'))
 // routes
-const homeRoute = require('./routes/home.route');
-app.use('/',homeRoute);
+const mainRoute = require('./routes/main.route');
+app.use('/',mainRoute);
 
  
 app.listen(port,()=>{
