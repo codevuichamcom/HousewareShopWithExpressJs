@@ -84,14 +84,18 @@ html
                             a.dropdown-item(href='get-list-cart') View List Cart
                         // Example single danger button
                     .btn-group
-                        a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto' href='http://localhost:8080/HousewareShop/login') Login
-                            i.fas.fa-user-plus.ml-2
+                        if user
+                            a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto')=user.name
+                                i.fas.fa-user-plus.ml-2
+                        else
+                            a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto' href='/login') Login
+                                i.fas.fa-user-plus.ml-2
                         .dropdown-menu
                             a.dropdown-item(href='http://localhost:8080/HousewareShop/my-profile') My profile
                             a.dropdown-item(href='http://localhost:8080/HousewareShop/my-profile' onclick='openOrder()') Orders
                             a.dropdown-item(href='#') History
                             .dropdown-divider
-                            a.dropdown-item(href='http://localhost:8080/HousewareShop/logout') Logout
+                            a.dropdown-item(href='/logout') Logout
         script.
             function submitForm() {
             document.getElementById("frm").submit();
