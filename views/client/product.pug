@@ -41,13 +41,28 @@ block content
                 if numPages
                     nav(aria-label='...')
                         ul.pagination.justify-content-end
-                            li.page-item.disabled
-                                span.page-link Previous
-                            each num in numPages
+                            if pageIndex > numPages[0]
                                 li.page-item
-                                    a.page-link(href='#')=num
-                            li.page-item
-                                a.page-link(href='#') Next
+                                        a.page-link(href=url+'pageIndex='+(pageIndex-1)) Previous
+                            else
+                                li.page-item.disabled
+                                    span.page-link Previous
+                            
+                            each num in numPages
+                                if num === pageIndex
+                                    li.page-item.active(aria-current='page')
+                                        span.page-link=num
+                                            span.sr-only (current)
+                                else
+                                    li.page-item
+                                        a.page-link(href=url+'pageIndex='+num)=num
+                            if pageIndex < numPages[numPages.length-1]
+                                li.page-item
+                                        a.page-link(href=url+'pageIndex='+(pageIndex+1)) Next
+                            else
+                                li.page-item.disabled
+                                     span.page-link Next
+                                
                 <!--end paging-->
                 .row.mb-5
                     each product in products
@@ -55,7 +70,7 @@ block content
                             .card 
                                 #DIV_1
                                     span#SPAN_2
-                                    i.fas.fa-bolt
+                                        i.fas.fa-bolt
                                 a(href='/detail?id='+product.id)
                                     img.card-img-top.pt-4(src='/images/'+product.images[0], style='border: 1px solid #ededed;', alt='...')
                                 .card-body.pt-3
