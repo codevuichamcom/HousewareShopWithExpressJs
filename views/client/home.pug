@@ -64,7 +64,7 @@ block content
                                         h5.card-title=product.name
                                     a(href='/detail?id='+product.id)
                                         p.card-text=product.description
-                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
+                                    a.btn.btn-outline-danger(href='/cart/add/'+product._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
         <!-- Measurement & Analysis Instruments -->
@@ -83,7 +83,7 @@ block content
                                         h5.card-title=measurement.name
                                     a(href='detail?id=${product.id}')
                                         p.card-text=measurement.description
-                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${product.id}')
+                                    a.btn.btn-outline-danger(href='/cart/add/'+measurement._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
     
@@ -104,7 +104,7 @@ block content
                                 .card-body
                                     a(href='detail?id=${arrival.id}')
                                         h6.card-title=arrival.description
-                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id=${arrival.id}')
+                                    a.btn.btn-outline-danger(href='/cart/add/'+arrival._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
                     .col-md-2
@@ -148,7 +148,7 @@ block content
                                         h5.card-title=tool.name
                                     a(href='detail?id=${tool.id}')
                                     p.card-text=tool.description
-                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id='+tool.id)
+                                    a.btn.btn-outline-danger(href='/cart/add/'+tool._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart          
     #carouselExampleIndicators4.carousel.slide(data-ride='carousel', data-interval='2500')
@@ -182,6 +182,6 @@ block content
                                     h5.card-title=home.name
                                     a(href='detail?id='+home.id)
                                         p.card-text=home.description
-                                    a.btn.btn-outline-danger(href='add-to-cart-from-home?id='+home.id)
+                                    a.btn.btn-outline-danger(href='/cart/add/'+home._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart                                   

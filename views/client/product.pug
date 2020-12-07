@@ -74,7 +74,7 @@ block content
                                 a(href='/detail?id='+product.id)
                                     img.card-img-top.pt-4(src='/images/'+product.images[0], style='border: 1px solid #ededed;', alt='...')
                                 .card-body.pt-3
-                                    a.btn.btn-outline-danger(href='add-to-cart-now?id=${product.id}')
+                                    a.btn.btn-outline-danger(href='/cart/add/'+product._id)
                                         i.fas.fa-cart-plus.mr-2
                                         | Add to cart
                                     a.card-title.text-center.mb-1.mt-2(href='/detail?id=${product.id}')=product.name

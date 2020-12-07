@@ -39,12 +39,11 @@ module.exports.postLogin = async (req, res) => {
         return;
     }
 
-    console.log(user);
     res.cookie('userId', user._id, { signed: true });
     res.redirect('/');
 }
 
 module.exports.logout = function (req, res) {
     res.clearCookie('userId');
-    res.redirect('/login');
+    res.redirect('/auth/login');
 };

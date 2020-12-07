@@ -68,34 +68,38 @@ html
                     li.nav-item.dropdown.active
                         a#navbarDropdown.nav-link.dropdown-toggle.mr-5(href='#' style='color: green; font-size: 2.5rem' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                             i.fas.fa-cart-plus.mr-2(style='color: #e9ecef; font-size: 2.5rem')
-                            sup(style='color: #fcae00 !important') 10
+                            if productCarts.length
+                                sup(style='color: #fcae00 !important')=productCarts.length
                         .dropdown-menu(aria-labelledby='navbarDropdown')
                             .popup-list-cart
                                 table
-                                    // for list cart
-                                    tr
-                                        td.px-2
-                                        img(src='images/${cart.productImg}')
-                                        td.f-small
-                                        a(href='detail?id=${cart.productId}') productName
-                                        td.px-3.f-small x 5
+                                    each product in productCarts
+                                        tr
+                                            td.px-2
+                                                img(src='/images/'+product.images[0])
+                                            td.f-small
+                                                a(href='detail?id=${cart.productId}')=product.name
+                                            td.px-3.f-small='x'+product.quantity
                                     // end of for
                             .dropdown-divider
-                            a.dropdown-item(href='get-list-cart') View List Cart
+                            if !productCarts.length
+                                        a.dropdown-item() List Cart Is Empty
+                            else
+                                a.dropdown-item(href='get-list-cart') View List Cart
                         // Example single danger button
                     .btn-group
                         if user
                             a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto')=user.name
                                 i.fas.fa-user-plus.ml-2
                         else
-                            a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto' href='/login') Login
+                            a#login.nav-link.btn.btn-outline-primary.ml-2.mr-1(style='margin: auto' href='/auth/login') Login
                                 i.fas.fa-user-plus.ml-2
                         .dropdown-menu
                             a.dropdown-item(href='http://localhost:8080/HousewareShop/my-profile') My profile
                             a.dropdown-item(href='http://localhost:8080/HousewareShop/my-profile' onclick='openOrder()') Orders
                             a.dropdown-item(href='#') History
                             .dropdown-divider
-                            a.dropdown-item(href='/logout') Logout
+                            a.dropdown-item(href='/auth/logout') Logout
         script.
             function submitForm() {
             document.getElementById("frm").submit();

@@ -34,7 +34,7 @@ block content
                     br
                     =product.description
                 hr
-                a.btn.btn-outline-danger.w-50.mt-4(href='add-to-cart?id=${requestScope.product.id}')
+                a.btn.btn-outline-danger.w-50.mt-4(href='/cart/add/'+product._id)
                     i.fas.fa-cart-plus.mr-2
                     | Add to Cart
                 a.btn.btn-outline-success.w-25.mt-4.ml-2(href='checkout')

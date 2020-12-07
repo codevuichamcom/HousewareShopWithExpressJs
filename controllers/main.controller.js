@@ -13,6 +13,7 @@ module.exports.home = async (req, res) => {
     const homeAndGardens = await Product.find({ "category._id": ObjectId(CATEGORY.HOME_AND_GARDEN) });
 
     const categories = await Category.find();
+    req.session.url = req.url;
     res.render("client/home", {
         products: products,
         measurements: measurements,
@@ -28,6 +29,7 @@ module.exports.detail = async (req, res) => {
     const product = await Product.findOne({ "_id": ObjectId(id) });
 
     const categories = await Category.find();
+    req.session.url = req.url;
     res.render("client/detail", {
         product: product,
 
@@ -78,8 +80,8 @@ module.exports.products = async (req, res) => {
     if (indexPageQuery !== -1) {
         url = url.substring(0, indexPageQuery - 1);
     }
+    req.session.url = req.url;
     url = (url === req.route.path) ? (url + '?') : (url + '&');
-
     res.render("client/product", {
         products: products,
         categories: categories,
