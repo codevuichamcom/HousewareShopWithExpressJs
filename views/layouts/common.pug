@@ -68,21 +68,21 @@ html
                     li.nav-item.dropdown.active
                         a#navbarDropdown.nav-link.dropdown-toggle.mr-5(href='#' style='color: green; font-size: 2.5rem' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                             i.fas.fa-cart-plus.mr-2(style='color: #e9ecef; font-size: 2.5rem')
-                            if productCarts.length
-                                sup(style='color: #fcae00 !important')=productCarts.length
+                            if cart.length
+                                sup(style='color: #fcae00 !important')=cart.length
                         .dropdown-menu(aria-labelledby='navbarDropdown')
                             .popup-list-cart
                                 table
-                                    each product in productCarts
+                                    each c in cart
                                         tr
                                             td.px-2
-                                                img(src='/images/'+product.images[0])
+                                                img(src='/images/'+c.images[0])
                                             td.f-small
-                                                a(href='detail?id=${cart.productId}')=product.name
-                                            td.px-3.f-small='x'+product.quantity
+                                                a(href='detail?id=${cart.productId}')=c.name
+                                            td.px-3.f-small='x'+c.quantity
                                     // end of for
                             .dropdown-divider
-                            if !productCarts.length
+                            if !cart.length
                                         a.dropdown-item() List Cart Is Empty
                             else
                                 a.dropdown-item(href='get-list-cart') View List Cart

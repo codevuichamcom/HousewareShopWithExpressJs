@@ -1,13 +1,9 @@
 const md5 = require('md5');
 
 const User = require('../models/user.model');
-const Category = require('../models/category.model');
 
 module.exports.getLogin = async (req, res) => {
-    const categories = await Category.find();
-    res.render('auth/login', {
-        categories: categories
-    });
+    res.render('auth/login');
 }
 
 module.exports.postLogin = async (req, res) => {
@@ -15,14 +11,12 @@ module.exports.postLogin = async (req, res) => {
 
     const user = await User.findOne({ email: email });
 
-    const categories = await Category.find();
     if (!user) {
         res.render('auth/login', {
             errors: [
                 'User does not exist'
             ],
-            values: req.body,
-            categories: categories
+            values: req.body
         });
         return;
     }
@@ -33,8 +27,7 @@ module.exports.postLogin = async (req, res) => {
             errors: [
                 'Wrong password'
             ],
-            values: req.body,
-            categories: categories
+            values: req.body
         });
         return;
     }

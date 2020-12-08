@@ -12,28 +12,22 @@ module.exports.home = async (req, res) => {
     const tools = await Product.find({ "category._id": ObjectId(CATEGORY.TOOLS) });
     const homeAndGardens = await Product.find({ "category._id": ObjectId(CATEGORY.HOME_AND_GARDEN) });
 
-    const categories = await Category.find();
     req.session.url = req.url;
     res.render("client/home", {
         products: products,
         measurements: measurements,
         arrivals: arrivals,
         tools: tools,
-        homeAndGardens: homeAndGardens,
-
-        categories: categories
+        homeAndGardens: homeAndGardens
     });
 };
 module.exports.detail = async (req, res) => {
     const { id } = req.query;
     const product = await Product.findOne({ "_id": ObjectId(id) });
 
-    const categories = await Category.find();
     req.session.url = req.url;
     res.render("client/detail", {
-        product: product,
-
-        categories: categories
+        product: product
     });
 };
 module.exports.products = async (req, res) => {
