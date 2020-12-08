@@ -24,13 +24,15 @@ module.exports = async (req, res, next) => {
         } else {
 
             if (!req.session.cart) {
-                const cart = session.get('cart');
+                const cart = session.get('cart') || {};
                 let products = [];
-                for (c in cart) {
-                    let product = await Product.findOne({ _id: c });
-                    product.quantity = cart[c];
-                    products.push(product);
+                if (cart) {
+                    for (c in cart) {
+                        let product = await Product.findOne({ _id: c });
+                        product.quantity = cart[c];
+                        products.push(product);
 
+                    }
                 }
                 req.session.cart = products;
             }
@@ -39,6 +41,6 @@ module.exports = async (req, res, next) => {
     }
 
     res.locals.cart = req.session.cart || [];
-    res.locals.categories = req.session.categories||await Category.find();
+    res.locals.categories = req.session.categories || await Category.find();
     next();
 }

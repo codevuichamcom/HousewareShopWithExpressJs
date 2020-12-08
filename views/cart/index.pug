@@ -1,7 +1,54 @@
 extends ../layouts/common.pug
 
 block content
-    table
-        each c in cart
-            tr
-                td=c._id
+    .container(style='margin-top: 7rem')
+        .mt-3
+            if !cart.length
+                .text-center
+                    h4 Shopping cart is Empty
+                    a.btn.btn-success.mt-2(href='/get-list-product') Back to Shopping
+            else
+                h4 Shopping Cart
+                form#formQuantity(action='/cart/sync', method='post', onChange='submitForm()')
+                    table.w-100.table.table-striped.mt-3
+                        thead
+                            tr
+                                th STT
+                                th Image
+                                th Name of Product
+                                th Price
+                                th Quantity
+                                th Total Price
+                                th Action
+                        tbody
+                            each c,index in cart
+                                tr
+                                    td=(index+1)
+                                    td
+                                        img(src='/images/'+c.images[0], style='width: 100px')
+                                    td=c.name
+                                    td='$'+c.price
+                                    td
+                                        input.pl-1(type='number', min='1', max='100', name='quantity'+index, value=c.quantity, style='width: 60px')
+                                    td='$'+c.price*c.quantity
+                                    td
+                                        a.btn.btn-danger(href='/cart/delete/'+c._id)
+                                            i.fas.fa-trash
+                            span(style='display: none') ${totalPrice=totalPrice+(cart.productPrice * cart.quantity)}
+                    hr
+                    .text-right
+                        h4='Total Money: $'+totalPrice
+                    hr
+                    .text-right
+                        a.btn.btn-danger(href='/cart/delete/-1')
+                            i.fas.fa-trash.mr-2
+                            | Delete Cart
+                        a.btn.btn-success.ml-2(href='checkout')
+                            | Continue
+                            i.fas.fa-arrow-right.ml-2
+    script.
+        function submitForm()
+        {
+            document.getElementById("formQuantity").submit();
+        }
+
