@@ -34,7 +34,6 @@ block content
                                     td
                                         a.btn.btn-danger(href='/cart/delete/'+c._id)
                                             i.fas.fa-trash
-                            span(style='display: none') ${totalPrice=totalPrice+(cart.productPrice * cart.quantity)}
                     hr
                     .text-right
                         h4='Total Money: $'+totalPrice
@@ -43,7 +42,7 @@ block content
                         a.btn.btn-danger(href='/cart/delete/-1')
                             i.fas.fa-trash.mr-2
                             | Delete Cart
-                        a.btn.btn-success.ml-2(href='checkout')
+                        a.btn.btn-success.ml-2(href='/cart/checkout')
                             | Continue
                             i.fas.fa-arrow-right.ml-2
     script.

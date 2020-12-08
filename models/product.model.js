@@ -9,7 +9,8 @@ const productSchema = new Schema({
     description:String,
     images: [String],
     status: String,
-    category: {"_id":mongoose.Types.ObjectId,"categoryName":String, "status":String}
+    category: {"_id":mongoose.Types.ObjectId,"categoryName":String, "status":String},
+    createdDate: Date
 });
 
 const Product = mongoose.model('Product', productSchema, 'products');

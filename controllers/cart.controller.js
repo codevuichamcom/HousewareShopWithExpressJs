@@ -1,6 +1,7 @@
-
+const ObjectId = require('mongodb').ObjectId
 const Product = require('../models/product.model');
 const Session = require('../models/session.model');
+const Order = require('../models/order.model');
 
 module.exports.index = (req, res) => {
     const { cart } = req.session;
@@ -23,9 +24,14 @@ module.exports.addToCart = async (req, res) => {
         return;
     }
 
+    if(!ObjectId.isValid(productId)){
+        res.redirect('/cart');
+        return;
+    }
+
     //add cart to db
     const session = await Session.findOne({ _id: sessionId });
-
+    
     let count = session.get('cart.' + productId) || 0;
     session.set('cart.' + productId, count + 1).save();
 
@@ -45,7 +51,7 @@ module.exports.addToCart = async (req, res) => {
     }
     req.session.cart = cart;
 
-    const url = req.session.url;
+    const url = req.session.url||'/';
     res.redirect(url);
 }
 module.exports.syncCart = async (req, res) => {
@@ -77,7 +83,7 @@ module.exports.deleteCart = async (req, res) => {
     const session = await Session.findOne({ _id: sessionId });
 
     if (productId === '-1') {
-        cart=[];
+        cart = [];
         session.set('cart', undefined).save();
     } else {
         //remove in session
@@ -88,17 +94,45 @@ module.exports.deleteCart = async (req, res) => {
             }
         }
 
-
-
         //remove in db
-        if(cart.length){//if have no product, remove cart
+        if (cart.length) {//if have no product, remove cart
             session.set('cart.' + productId, undefined).save();
-        }else{ //remove product in cart
+        } else { //remove product in cart
             session.set('cart', undefined).save();
         }
-        
-
     }
     req.session.cart = cart;
     res.redirect('/cart');
+}
+module.exports.getCheckOut = async (req, res) => {
+    const { cart } = req.session;
+
+    let totalPrice = 0;
+    for (c of cart) {
+        totalPrice += c.price * c.quantity;
+    }
+    res.render('cart/checkout', {
+        totalPrice: totalPrice
+    });
+}
+module.exports.postCheckOut = async (req, res) => {
+    const { cart } = req.session;
+    const { userId,sessionId } = req.signedCookies;
+
+    let data = req.body;
+    data.cart = cart;
+    data.userId = userId;
+    data.createdDate = new Date();
+    Order.create(data,(err, result)=>{
+        if(err){
+            res.send(err);
+        }
+    });
+
+    //xoa cart
+    req.session.cart = [];
+    const session = await Session.findOne({ _id: sessionId });
+    session.set('cart', undefined).save();
+    res.render('cart/thanks');
+
 }

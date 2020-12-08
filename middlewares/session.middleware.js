@@ -22,7 +22,6 @@ module.exports = async (req, res, next) => {
                 }
             });
         } else {
-
             if (!req.session.cart) {
                 const cart = session.get('cart') || {};
                 let products = [];

@@ -1,0 +1,59 @@
+extends ../layouts/common.pug
+
+block content
+    .container(style='margin-top: 5rem')
+        .row
+            .col-md-8(style='border: 1px solid #ced4da;border-radius: 5px !important')
+                if !cart.length
+                    .text-center
+                        h4 Shopping cart is Empty
+                        a.btn.btn-success.mt-2(href='/get-list-product') Back to Shopping
+                else
+                    h4 Shopping Cart
+                    form#formQuantity(action='/cart/sync', method='post', onChange='submitForm()')
+                        table.w-100.table.table-striped.mt-3
+                            thead
+                                tr
+                                    th STT
+                                    th Image
+                                    th Name of Product
+                                    th Price
+                                    th Quantity
+                                    th Total Price
+                                    th Action
+                            tbody
+                                each c,index in cart
+                                    tr
+                                        td=(index+1)
+                                        td
+                                            img(src='/images/'+c.images[0], style='width: 100px')
+                                        td=c.name
+                                        td='$'+c.price
+                                        td
+                                            input.pl-1(type='number', min='1', max='100', name='quantity'+index, value=c.quantity, style='width: 60px')
+                                        td='$'+c.price*c.quantity
+                                        td
+                                            a.btn.btn-danger(href='/cart/delete/'+c._id)
+                                                i.fas.fa-trash
+                        hr
+                        .text-right
+                            h4='Total Money: $'+totalPrice
+            .col-md-4.pl-5(style='border: 1px solid #ced4da;border-radius: 5px !important;')
+                h3.mt-3(style='color: orange') Infomation of Customer
+                .card.mt-3
+                    .card-body
+                        form(method='post')
+                            .form-group
+                                label(for='name') Full Name
+                                input.form-control(type='text', name='name', placeholder='Enter name', required='')
+                                small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+                            .form-group
+                                label(for='sdt') Phone number
+                                input.form-control(type='number', name='phone', placeholder='enter phone number', required='')
+                            .form-group
+                                label(for='address') Address
+                                textarea.form-control(rows='3', name='address', required='')
+                            .form-group
+                                label(for='address') Note
+                                textarea.form-control(rows='3', name='note')
+                            button.btn.btn-success.w-100(type='submit') Accept
